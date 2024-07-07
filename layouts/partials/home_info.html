@@ -4,10 +4,19 @@
     <h1>{{ .Title | markdownify }}</h1>
   </header>
   <section class="entry-content">
-    {{- trim .Content "\n" | markdownify -}}
+    <div class="content-wrapper">
+      <div class="text-wrapper">{{- trim .Content "\n" | markdownify -}}</div>
+      <div class="social-icons-wrapper">
+        {{- partial "social_icons.html" (dict "icons" site.Params.socialIcons
+        "svg" $.Site.Data.svg "MaskedEmail" site.Params.MaskedEmail "Email"
+        site.Params.Email) -}}
+      </div>
+      <div class="image-wrapper">
+        {{/* Imagem foi acrescentada */}} {{- if .Image }}
+        <img src="{{ .Image }}" alt="Imagem da página inicial" />
+        {{- end }}
+      </div>
+    </div>
   </section>
-  <footer class="entry-footer">
-    {{- partial "social_icons.html" (dict "icons" site.Params.socialIcons "svg" $.Site.Data.svg "MaskedEmail" site.Params.MaskedEmail "Email" site.Params.Email) -}}
-  </footer>
 </article>
 {{- end -}}
